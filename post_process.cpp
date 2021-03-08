@@ -61,14 +61,14 @@ void find_peaks(Vec1D<int> &counts_out, Vec3D<int> &peaks_out, void *cmap_data,
                 NvDsInferDims &cmap_dims, float threshold, int window_size, int max_count)
 {
   int w = window_size / 2;
-  int width = cmap_dims.d[2];
-  int height = cmap_dims.d[1];
 
-  counts_out.assign(cmap_dims.d[0], 0);
-  peaks_out.assign(cmap_dims.d[0], Vec2D<int>(max_count, Vec1D<int>(M,
-                                                                    0)));
+  int width = cmap_dims.d[1];  // changed from cmap_dims.d[2]
+  int height = cmap_dims.d[0];  // changed from cmap_dims.d[1]
 
-  for (unsigned int c = 0; c < cmap_dims.d[0]; c++)
+  counts_out.assign(cmap_dims.d[2], 0);   // changed from cmap_dims.d[0]
+  peaks_out.assign(cmap_dims.d[2], Vec2D<int>(max_count, Vec1D<int>(M, 0)));   // changed from cmap_dims.d[0]
+
+  for (unsigned int c = 0; c < cmap_dims.d[2]; c++)   // changed from cmap_dims.d[0]
   {
     int count = 0;
     float *cmap_data_c = (float *)cmap_data + c * width * height;
@@ -128,13 +128,13 @@ refine_peaks(Vec1D<int> &counts,
              int window_size)
 {
   int w = window_size / 2;
-  int width = cmap_dims.d[2];
-  int height = cmap_dims.d[1];
+  int width = cmap_dims.d[1];    // changed from cmap_dims.d[2]
+  int height = cmap_dims.d[0];   // changed from cmap_dims.d[1]
 
   Vec3D<float> refined_peaks(peaks.size(), Vec2D<float>(peaks[0].size(),
                                                         Vec1D<float>(peaks[0][0].size(), 0)));
 
-  for (unsigned int c = 0; c < cmap_dims.d[0]; c++)
+  for (unsigned int c = 0; c < cmap_dims.d[2]; c++)    // changed from cmap_dims.d[0]
   {
     int count = counts[c];
     auto &refined_peaks_a_bc = refined_peaks[c];
@@ -195,8 +195,8 @@ paf_score_graph(void *paf_data, NvDsInferDims &paf_dims,
                 Vec3D<float> &peaks, int num_integral_samples)
 {
   int K = topology.size();
-  int H = paf_dims.d[1];
-  int W = paf_dims.d[2];
+  int H = paf_dims.d[0];    // changed from paf_dims.d[1]
+  int W = paf_dims.d[1];    // changed from paf_dims.d[2]
   int max_count = peaks[0].size();
   Vec3D<float> score_graph(K, Vec2D<float>(max_count, Vec1D<float>(max_count, 0)));
 

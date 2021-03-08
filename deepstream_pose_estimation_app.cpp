@@ -56,10 +56,10 @@ parse_objects_from_tensor_meta(NvDsInferTensorMeta *tensor_meta)
   float link_threshold = 0.1;
   int max_num_objects = 100;
 
-  void *cmap_data = tensor_meta->out_buf_ptrs_host[0];
-  NvDsInferDims &cmap_dims = tensor_meta->output_layers_info[0].inferDims;
-  void *paf_data = tensor_meta->out_buf_ptrs_host[1];
-  NvDsInferDims &paf_dims = tensor_meta->output_layers_info[1].inferDims;
+  void *cmap_data = tensor_meta->out_buf_ptrs_host[1]; //changed from out_buf_ptrs_host[0]
+  NvDsInferDims &cmap_dims = tensor_meta->output_layers_info[1].inferDims; //changed from output_layers_info[0]
+  void *paf_data = tensor_meta->out_buf_ptrs_host[0]; //changed from out_buf_ptrs_host[1]
+  NvDsInferDims &paf_dims = tensor_meta->output_layers_info[0].inferDims; //changed from output_layers_info[1]
 
   /* Finding peaks within a given window */
   find_peaks(counts, peaks, cmap_data, cmap_dims, threshold, window_size, max_num_parts);

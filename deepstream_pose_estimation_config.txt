@@ -40,9 +40,19 @@
 
 [property]
 gpu-id=0
-net-scale-factor=0.0174292
-offsets=123.675;116.28;103.53
-onnx-file=pose_estimation.onnx
+
+net-scale-factor=1 
+#changed from net-scale-factor=0.0174292
+
+offsets=103.939;116.779;123.68
+#changed from offsets=123.675;116.28;103.53
+
+#Set this to onnx model converted from e.g. resnet18_baseline_att_224x224_A.pth (https://github.com/NVIDIA-AI-IOT/trt_pose)
+#onnx-file=pose_estimation.onnx
+
+# set to new engine file when generated
+#model-engine-file=pose_estimation.onnx_b1_gpu0_fp16.engine
+
 labelfile-path=labels.txt
 batch-size=1
 process-mode=1
@@ -52,7 +62,6 @@ network-mode=2
 num-detected-classes=4
 interval=0
 gie-unique-id=1
-model-engine-file=pose_estimation.onnx_b1_gpu0_fp16.engine
 network-type=100
 workspace-size=3000
 
