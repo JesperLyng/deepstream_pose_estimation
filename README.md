@@ -1,3 +1,8 @@
+This repo has been created in response to this post: https://forums.developer.nvidia.com/t/creating-a-human-pose-estimation-application-with-nvidia-deepstream/160443/50
+
+I made an attempt to solve the problems with using models other than the one offered by the author.
+Unfortunately I didn't succeed and I'm waiting for someone to come up with a solution.
+
 # DeepStream Human Pose Estimation
 
 Human pose estimation is the computer vision task of estimating the configuration (‘the pose’) of the human body by localizing certain key points on a body within a video or a photo. The following application serves as a reference to deploy custom pose estimation models with DeepStream 5.0 using the [TRTPose](https://github.com/NVIDIA-AI-IOT/trt_pose) project as an example. 
